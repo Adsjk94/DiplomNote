@@ -1,10 +1,41 @@
 <resources>
+
     <!-- Base application theme. -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/color_blue</item>
+        <item name="colorPrimaryDark">@color/dark_grey</item>
+        <item name="colorAccent">@color/color_blue</item>
+        <item name="android:colorBackground">@color/light_grey</item>
+    </style>
+
+
+    <!-- My theme. -->
+
+    <style name="ClassicTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/color_black</item>
+        <item name="colorPrimaryDark">@color/color_black</item>
+        <item name="colorAccent">@color/color_yellow</item>
+        <item name="android:textColor">@color/color_black</item>
+        <item name="android:colorBackground">@color/medium_grey</item>
+    </style>
+
+    <style name="FunTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/color_yellow</item>
+        <item name="colorPrimaryDark">@color/color_yellow</item>
+        <item name="colorAccent">@color/color_red</item>
+        <item name="android:colorBackground">@color/color_white</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/color_blue</item>
     </style>
 
 </resources>
