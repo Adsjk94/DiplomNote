@@ -36,7 +36,7 @@ public class OtherSettingsActivity extends AppCompatActivity {
     public static final String nameKey = "nameKey";
     private String pinOff = "pinOff";
 
-    private Key keystore = App.getKey();
+    private Key key = App.getKey();
 
     private Switch checkOffPin;
     private Spinner spinnerTheme;
@@ -103,7 +103,7 @@ public class OtherSettingsActivity extends AppCompatActivity {
                 modePinOpenClose();
             }
         });
-        if (keystore.checkPin(pinOff)) {
+        if (key.checkPin(pinOff)) {
             checkOffPin.setChecked(true);
         } else {
             checkOffPin.setChecked(sharedPrefs.getBoolean(nameKey, false));
@@ -116,7 +116,7 @@ public class OtherSettingsActivity extends AppCompatActivity {
                 } else {
                     checkOffPin.setChecked(false);
                     setSharedPreferences();
-                    if (keystore.checkPin(pinOff)) {
+                    if (key.checkPin(pinOff)) {
                         Intent intent = new Intent(OtherSettingsActivity.this, SettingsActivity.class);
                         startActivity(intent);
                     }
@@ -243,19 +243,19 @@ public class OtherSettingsActivity extends AppCompatActivity {
         int count = stringNewPassword.length();
         if (count < 4) {
             Toast.makeText(this, R.string.toast_enter4, Toast.LENGTH_SHORT).show();
-        } else if (keystore.hasPin() && !keystore.checkPin(pinOff)) {
+        } else if (key.hasPin() && !key.checkPin(pinOff)) {
             stringInputOldPassword = editOldPin.getText().toString();
             if ("".equals(stringInputOldPassword)) {
                 Toast.makeText(this, R.string.toast_enter_PIN, Toast.LENGTH_SHORT).show();
-            } else if (!keystore.checkPin(stringInputOldPassword)) {
+            } else if (!key.checkPin(stringInputOldPassword)) {
                 Toast.makeText(this, R.string.toast_error_PIN, Toast.LENGTH_SHORT).show();
             } else {
-                keystore.saveNew(stringNewPassword);
+                key.saveNew(stringNewPassword);
                 checkOffPin.setChecked(false);
                 modePinOpenClose();
             }
         } else {
-            keystore.saveNew(stringNewPassword);
+            key.saveNew(stringNewPassword);
             checkOffPin.setChecked(false);
             modePinOpenClose();
 
@@ -265,7 +265,7 @@ public class OtherSettingsActivity extends AppCompatActivity {
     // Отключение Pin и сохранение состояния *********
 
     public void switchOffPin() {
-        if (keystore.hasPin()) {
+        if (key.hasPin()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(OtherSettingsActivity.this);
             final EditText input = new EditText(OtherSettingsActivity.this);
             input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
@@ -278,9 +278,9 @@ public class OtherSettingsActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             String string = input.getText().toString();
                             String inputString = string.replaceAll("[,]", "").toString();
-                            if (keystore.checkPin(inputString)) {
+                            if (key.checkPin(inputString)) {
                                 checkOffPin.setChecked(true);
-                                keystore.saveNew(pinOff);
+                                key.saveNew(pinOff);
                                 Toast.makeText(OtherSettingsActivity.this, R.string.toast_clear_Pin, Toast.LENGTH_SHORT).show();
                             } else {
                                 input.getText().clear();
@@ -300,7 +300,7 @@ public class OtherSettingsActivity extends AppCompatActivity {
             alert.show();
         } else {
             checkOffPin.setChecked(true);
-            keystore.saveNew(pinOff);
+            key.saveNew(pinOff);
             Toast.makeText(OtherSettingsActivity.this, R.string.toast_saved_PINOff, Toast.LENGTH_SHORT).show();
         }
         setSharedPreferences();
