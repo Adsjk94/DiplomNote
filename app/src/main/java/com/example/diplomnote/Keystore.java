@@ -1,6 +1,6 @@
 package com.example.diplomnote;
 
-interface Key {
+interface Keystore {
     boolean hasPin();
     boolean checkPin(String pin);
     void saveNew(String pin);

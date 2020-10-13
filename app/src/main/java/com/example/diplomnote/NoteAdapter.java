@@ -97,11 +97,9 @@ public class NoteAdapter extends BaseAdapter {
         } else {
             Calendar calendar = Calendar.getInstance();
             skipHours(calendar);
-            // Текущий день
             long getCurrentDateTime = calendar.getTimeInMillis();
             calendar.setTimeInMillis(notePosition.getDeadLineDate().getTime());
             skipHours(calendar);
-            // День из дедлайна
             long parseDeadLineDate = calendar.getTimeInMillis();
             if (getCurrentDateTime > parseDeadLineDate) {
                 textViewDate.setTextColor(textViewDate.getResources().getColor(R.color.color_red));
@@ -133,7 +131,7 @@ public class NoteAdapter extends BaseAdapter {
                 AlertDialog.Builder builder = new AlertDialog.Builder(myContext);
                 builder.setTitle(R.string.dialog_delete)
                         .setMessage(notePosition.getTextNameNote())
-                        .setIcon(R.drawable.ic_delete_forever_black_24dp)
+                        .setIcon(R.drawable.ic_garbage)
                         .setCancelable(false)
                         .setPositiveButton(R.string.dialog_OK, new DialogInterface.OnClickListener() {
                             @Override

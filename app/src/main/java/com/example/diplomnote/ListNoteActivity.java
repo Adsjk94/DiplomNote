@@ -39,8 +39,6 @@ public class ListNoteActivity extends AppCompatActivity {
         initView();
     }
 
-    // Показать существующие заметки ***********
-
     private List<Note> getNotesList() {
         try {
             notes = noteRepository.getNotes();
@@ -59,8 +57,6 @@ public class ListNoteActivity extends AppCompatActivity {
         }
         return null;
     }
-
-    // Кнопки **********************
 
     private void initView() {
         getNotesList();

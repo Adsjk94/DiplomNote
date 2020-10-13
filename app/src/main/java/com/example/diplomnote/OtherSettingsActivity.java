@@ -1,5 +1,8 @@
 package com.example.diplomnote;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -23,10 +26,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import java.util.Objects;
 import static android.view.View.GONE;
+
 
 public class OtherSettingsActivity extends AppCompatActivity {
 
@@ -34,10 +36,11 @@ public class OtherSettingsActivity extends AppCompatActivity {
 
     public static final String myPrefs = "myPrefs";
     public static final String nameKey = "nameKey";
-    private String pinOff = "pinOff";
+    private final String pinOff = "pinOff";
 
-    private Key key = App.getKey();
+    private final Keystore keystore = App.getKeystore();
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch checkOffPin;
     private Spinner spinnerTheme;
     private EditText editNewPin;
@@ -58,7 +61,6 @@ public class OtherSettingsActivity extends AppCompatActivity {
         initView();
     }
 
-    // Кнопки *******
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -71,7 +73,7 @@ public class OtherSettingsActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         editNewPin = findViewById(R.id.editTextNewPin);
         editOldPin = findViewById(R.id.editTextOldPin);
         btnEysNewPin = findViewById(R.id.buttonEyeNewPin);
@@ -103,7 +105,7 @@ public class OtherSettingsActivity extends AppCompatActivity {
                 modePinOpenClose();
             }
         });
-        if (key.checkPin(pinOff)) {
+        if (keystore.checkPin(pinOff)) {
             checkOffPin.setChecked(true);
         } else {
             checkOffPin.setChecked(sharedPrefs.getBoolean(nameKey, false));
@@ -116,7 +118,7 @@ public class OtherSettingsActivity extends AppCompatActivity {
                 } else {
                     checkOffPin.setChecked(false);
                     setSharedPreferences();
-                    if (key.checkPin(pinOff)) {
+                    if (keystore.checkPin(pinOff)) {
                         Intent intent = new Intent(OtherSettingsActivity.this, SettingsActivity.class);
                         startActivity(intent);
                     }
@@ -134,7 +136,6 @@ public class OtherSettingsActivity extends AppCompatActivity {
         });
     }
 
-    // Развернуть изменение Pin
 
     private void modePinOpenClose() {
         if (editNewPin.getVisibility() == View.GONE) {
@@ -168,7 +169,6 @@ public class OtherSettingsActivity extends AppCompatActivity {
         }
     }
 
-    // Спинер****
 
     private void initThemeOnSave() {
         switch (spinnerTheme.getSelectedItem().toString()) {
@@ -207,19 +207,17 @@ public class OtherSettingsActivity extends AppCompatActivity {
         });
     }
 
-    // Глаз ****
 
     private void setVisibleTextOldPin() {
         int typeNow = editOldPin.getInputType();
         if (typeNow != (InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_CLASS_NUMBER)) {
             btnEysOldPin.setImageResource(R.drawable.ic_remove_red_eye_black_24dp);
             editOldPin.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_CLASS_NUMBER);
-            editOldPin.setSelection(editOldPin.length());
         } else {
             btnEysOldPin.setImageResource(R.drawable.ic_visibility_off_black_24dp);
             editOldPin.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-            editOldPin.setSelection(editOldPin.length());
         }
+        editOldPin.setSelection(editOldPin.length());
     }
 
     private void setVisibleTextNewPin() {
@@ -227,15 +225,13 @@ public class OtherSettingsActivity extends AppCompatActivity {
         if (typeNow != (InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_CLASS_NUMBER)) {
             btnEysNewPin.setImageResource(R.drawable.ic_remove_red_eye_black_24dp);
             editNewPin.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD | InputType.TYPE_CLASS_NUMBER);
-            editNewPin.setSelection(editNewPin.length());
         } else {
             btnEysNewPin.setImageResource(R.drawable.ic_visibility_off_black_24dp);
             editNewPin.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-            editNewPin.setSelection(editNewPin.length());
         }
+        editNewPin.setSelection(editNewPin.length());
     }
 
-    // Сохранение Pin ********
 
     private void savePinFile() {
         String stringInputOldPassword;
@@ -243,29 +239,28 @@ public class OtherSettingsActivity extends AppCompatActivity {
         int count = stringNewPassword.length();
         if (count < 4) {
             Toast.makeText(this, R.string.toast_enter4, Toast.LENGTH_SHORT).show();
-        } else if (key.hasPin() && !key.checkPin(pinOff)) {
+        } else if (keystore.hasPin() && !keystore.checkPin(pinOff)) {
             stringInputOldPassword = editOldPin.getText().toString();
             if ("".equals(stringInputOldPassword)) {
                 Toast.makeText(this, R.string.toast_enter_PIN, Toast.LENGTH_SHORT).show();
-            } else if (!key.checkPin(stringInputOldPassword)) {
+            } else if (!keystore.checkPin(stringInputOldPassword)) {
                 Toast.makeText(this, R.string.toast_error_PIN, Toast.LENGTH_SHORT).show();
             } else {
-                key.saveNew(stringNewPassword);
+                keystore.saveNew(stringNewPassword);
                 checkOffPin.setChecked(false);
                 modePinOpenClose();
             }
         } else {
-            key.saveNew(stringNewPassword);
+            keystore.saveNew(stringNewPassword);
             checkOffPin.setChecked(false);
             modePinOpenClose();
 
         }
     }
 
-    // Отключение Pin и сохранение состояния *********
 
     public void switchOffPin() {
-        if (key.hasPin()) {
+        if (keystore.hasPin()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(OtherSettingsActivity.this);
             final EditText input = new EditText(OtherSettingsActivity.this);
             input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
@@ -277,10 +272,10 @@ public class OtherSettingsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String string = input.getText().toString();
-                            String inputString = string.replaceAll("[,]", "").toString();
-                            if (key.checkPin(inputString)) {
+                            String inputString = string.replaceAll("[,]", "");
+                            if (keystore.checkPin(inputString)) {
                                 checkOffPin.setChecked(true);
-                                key.saveNew(pinOff);
+                                keystore.saveNew(pinOff);
                                 Toast.makeText(OtherSettingsActivity.this, R.string.toast_clear_Pin, Toast.LENGTH_SHORT).show();
                             } else {
                                 input.getText().clear();
@@ -300,7 +295,7 @@ public class OtherSettingsActivity extends AppCompatActivity {
             alert.show();
         } else {
             checkOffPin.setChecked(true);
-            key.saveNew(pinOff);
+            keystore.saveNew(pinOff);
             Toast.makeText(OtherSettingsActivity.this, R.string.toast_saved_PINOff, Toast.LENGTH_SHORT).show();
         }
         setSharedPreferences();

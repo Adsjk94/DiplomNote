@@ -5,20 +5,20 @@ import android.app.Application;
 public class App extends Application {
 
     private static NoteRepository noteRepository;
-    private static Key key;
+    private static Keystore keystore;
 
     @Override
     public void onCreate() {
         super.onCreate();
         noteRepository = new FileNotes(this);
-        key = new FilePin(this);
+        keystore = new FilePin(this);
     }
 
     public static NoteRepository getNoteRepository() {
         return noteRepository;
     }
 
-    public static Key getKey() {
-        return key;
+    public static Keystore getKeystore() {
+        return keystore;
     }
 }

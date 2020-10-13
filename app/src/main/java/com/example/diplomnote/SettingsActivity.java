@@ -18,7 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
     private String stringNewPassword;
     private String pinOff = "pinOff";
 
-    private Key keystore = App.getKey();
+    private Keystore keystore = App.getKeystore();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class SettingsActivity extends AppCompatActivity {
         initView();
     }
 
-    // Кнопки ********
 
     private void initView() {
         editNewPin = findViewById(R.id.editTextNewPin);
@@ -61,8 +60,6 @@ public class SettingsActivity extends AppCompatActivity {
             editNewPin.setSelection(editNewPin.length());
         }
     }
-
-    // Сохранение ********
 
     private void savePinFile() {
         stringNewPassword = editNewPin.getText().toString();

@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private Key key = App.getKey();
+    private Keystore keystore = App.getKeystore();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +17,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initActivity() {
-        if (key.hasPin()) {
-            if (key.checkPin("pinOff")) {
+        if (keystore.hasPin()) {
+            if (keystore.checkPin("pinOff")) {
                 SplashActivity.this.startActivity(new Intent(SplashActivity.this, ListNoteActivity.class));
             } else {
                 SplashActivity.this.startActivity(new Intent(SplashActivity.this, MainActivity.class));

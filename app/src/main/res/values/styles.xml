@@ -3,17 +3,15 @@
     <!-- Base application theme. -->
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/color_blue</item>
-        <item name="colorPrimaryDark">@color/dark_grey</item>
-        <item name="colorAccent">@color/color_blue</item>
+        <item name="colorPrimary">#0288D1</item>
+        <item name="colorPrimaryDark">@color/medium_grey</item>
+        <item name="colorAccent">#0097A7</item>
         <item name="android:colorBackground">@color/light_grey</item>
     </style>
 
 
-    <!-- My theme. -->
 
     <style name="ClassicTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -24,14 +22,14 @@
         <item name="colorPrimaryDark">@color/color_black</item>
         <item name="colorAccent">@color/color_yellow</item>
         <item name="android:textColor">@color/color_black</item>
-        <item name="android:colorBackground">@color/medium_grey</item>
+        <item name="android:colorBackground">#3A3838</item>
     </style>
 
     <style name="FunTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/color_yellow</item>
+        <item name="colorPrimary">@color/colorAccent</item>
         <item name="colorPrimaryDark">@color/color_yellow</item>
-        <item name="colorAccent">@color/color_red</item>
-        <item name="android:colorBackground">@color/color_white</item>
+        <item name="colorAccent">#67DD01</item>
+        <item name="android:colorBackground">#07A2F6</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">

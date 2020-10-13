@@ -72,7 +72,7 @@ public class NewNoteActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Данные для редактирования ******************
+
 
     private void initBundle() {
         bundle = getIntent().getExtras();
@@ -99,7 +99,6 @@ public class NewNoteActivity extends AppCompatActivity {
         }
     }
 
-    // Инициализация кнопок приложения *********************
 
     private void initView() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -179,7 +178,6 @@ public class NewNoteActivity extends AppCompatActivity {
         }
     }
 
-    // Запрос разрешений ***************
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -190,7 +188,6 @@ public class NewNoteActivity extends AppCompatActivity {
         }
     }
 
-    // Сохранение данных *****************
 
     private void saveInfoNote() {
         checkIsChecked = checkBoxSelect.isChecked();
@@ -240,7 +237,6 @@ public class NewNoteActivity extends AppCompatActivity {
         }
     }
 
-    // выбор Даты *******************
 
     public void setDate() {
         datePickerDialog = new DatePickerDialog(NewNoteActivity.this, date,

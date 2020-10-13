@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 
-public class FilePin implements Key {
+public class FilePin implements Keystore {
 
     private static final String FILE_PASSWORD = "password_notes";
     private Context context;

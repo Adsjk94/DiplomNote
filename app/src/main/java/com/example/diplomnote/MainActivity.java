@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Key key = App.getKey();
+    private Keystore keystore = App.getKeystore();
     private TextView textViewPIN;
     private ImageView radioButton1;
     private ImageView radioButton2;
@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void findOldPIN() {
-        if (!key.hasPin()) {
+        if (!keystore.hasPin()) {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         } else {
-            if (key.checkPin("pinOff")) {
+            if (keystore.checkPin("pinOff")) {
                 startActivity(new Intent(MainActivity.this, ListNoteActivity.class));
             } else {
                 initView();
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPin() {
-        if (!key.checkPin(textViewPIN.getText().toString())) {
+        if (!keystore.checkPin(textViewPIN.getText().toString())) {
             Toast.makeText(this, R.string.toast_error_PIN, Toast.LENGTH_SHORT).show();
         } else {
             Intent intent = new Intent(MainActivity.this, ListNoteActivity.class);
