@@ -175,10 +175,10 @@ public class OtherSettingsActivity extends AppCompatActivity {
             default:
             case " ":
                 break;
-            case "Холодный":
+            case "Стандарт":
                 UtilsSpinner.changeToTheme(OtherSettingsActivity.this, UtilsSpinner.THEME_COLD);
                 break;
-            case "Классический":
+            case "Основной":
                 UtilsSpinner.changeToTheme(OtherSettingsActivity.this, UtilsSpinner.THEME_CLASSIC);
                 break;
             case "Темный":

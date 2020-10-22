@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DiplomNote</string>
+    <string name="app_name">Note</string>
     <string name="title_new_note">создать</string>
     <string name="title_edit_note">редактировать</string>
     <string name="title_setting">настройки</string>
